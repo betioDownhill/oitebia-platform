@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WorkCard from "../../components/WorkCard.astro";
+import { works } from "../../data/works";
+---
+
+<BaseLayout title="作品一覧 | Oitebia Studio">
+  <section class="panel intro">
+    <h1>Works</h1>
+    <p>五感シリーズを中心に、短編アニメ化を前提とした制作パッケージを公開しています。</p>
+  </section>
+
+  <section class="grid-wrap">
+    {works.map((work) => <WorkCard work={work} />)}
+  </section>
+</BaseLayout>
+
+<style>
+  h1 {
+    margin: 0;
+    font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+  }
+
+  .intro p {
+    margin: 0.4rem 0 0;
+    color: var(--muted);
+  }
+
+  .grid-wrap {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
+  @media (max-width: 960px) {
+    .grid-wrap {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 680px) {
+    .grid-wrap {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,158 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Oitebia Studio",
+  description = "世界のサインを、物語・歌・映像へ。"
+} = Astro.props;
+
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <style>
+      :root {
+        --bg: #0c1117;
+        --bg-soft: #131b24;
+        --line: #29384a;
+        --text: #f7f5f0;
+        --muted: #b0bdca;
+        --accent: #ffc668;
+        --accent-2: #78e0c3;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        background:
+          radial-gradient(circle at 10% 20%, #22374f 0%, transparent 36%),
+          radial-gradient(circle at 90% 0%, #4f2d2a 0%, transparent 30%),
+          linear-gradient(180deg, #0b1016 0%, #131b24 100%);
+        font-family: "Hiragino Mincho ProN", "Yu Mincho", "BIZ UDPMincho", serif;
+        line-height: 1.8;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        width: min(1100px, 92vw);
+        margin: 0 auto;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: color-mix(in oklab, #0b1016 80%, transparent);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.9rem 0;
+      }
+
+      nav .brand {
+        font-size: 0.95rem;
+        letter-spacing: 0.08em;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 1.2rem;
+        margin: 0;
+        padding: 0;
+        font-size: 0.88rem;
+      }
+
+      main {
+        padding: 2.2rem 0 4rem;
+      }
+
+      .panel {
+        background: color-mix(in oklab, var(--bg-soft) 85%, transparent);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 1.2rem;
+      }
+
+      .btn {
+        display: inline-block;
+        text-decoration: none;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        padding: 0.55rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .btn.primary {
+        background: linear-gradient(120deg, var(--accent), #f09a6f);
+        color: #1f1204;
+        border: none;
+        font-weight: 700;
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        padding: 1.4rem 0 3rem;
+        font-size: 0.8rem;
+      }
+
+      @media (max-width: 760px) {
+        nav {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.8rem;
+        }
+
+        nav ul {
+          flex-wrap: wrap;
+          gap: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="shell">
+        <nav>
+          <div class="brand"><a href={withBase("/")}>Oitebia Studio</a></div>
+          <ul>
+            <li><a href={withBase("/")}>Top</a></li>
+            <li><a href={withBase("/works")}>Works</a></li>
+            <li><a href={withBase("/novels/yui-miracle")}>Novel</a></li>
+            <li><a href="https://github.com/betioDownhill/oitebia-studio">GitHub</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="shell">
+        <slot />
+      </div>
+    </main>
+    <footer>
+      <div class="shell">Oitebia Studio / Founded 2026</div>
+    </footer>
+  </body>
+</html>

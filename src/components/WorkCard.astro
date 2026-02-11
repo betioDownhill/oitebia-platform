@@ -1,0 +1,50 @@
+---
+import type { Work } from "../data/works";
+
+interface Props {
+  work: Work;
+}
+
+const { work } = Astro.props;
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+---
+
+<article class="card panel">
+  <p class="sense">{work.sense}</p>
+  <h3>{work.title}</h3>
+  <p>{work.tagline}</p>
+  <p class="muted">{work.highlight}</p>
+  <div class="actions">
+    <a class="btn" href={withBase(`/works/${work.slug}`)}>作品詳細へ</a>
+    <a class="btn" href={withBase(`/novels/${work.novelSlug}`)}>小説を読む</a>
+  </div>
+</article>
+
+<style>
+  .card h3 {
+    margin: 0.2rem 0 0.2rem;
+    font-size: 1.15rem;
+  }
+
+  .card p {
+    margin: 0.2rem 0;
+  }
+
+  .sense {
+    font-size: 0.8rem;
+    color: var(--accent-2);
+    letter-spacing: 0.08em;
+  }
+
+  .muted {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .actions {
+    margin-top: 0.8rem;
+    display: flex;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+  }
+</style>

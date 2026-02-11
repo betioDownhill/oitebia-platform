@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { novels } from "../../data/novels";
+
+export function getStaticPaths() {
+  return novels.map((novel) => ({ params: { slug: novel.slug }, props: { novel } }));
+}
+
+const { novel } = Astro.props;
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+---
+
+<BaseLayout title={`${novel.workTitle} | Novel`} description={novel.lead}>
+  <article class="panel reader">
+    <header>
+      <p class="kicker">NOVEL READER</p>
+      <h1>{novel.workTitle}</h1>
+      <p class="lead">{novel.lead}</p>
+      <div class="actions">
+        <a class="btn" href={withBase("/works")}>作品一覧へ</a>
+      </div>
+    </header>
+
+    {novel.chapters.map((chapter) => (
+      <section class="chapter" id={chapter.id}>
+        <h2>{chapter.heading}</h2>
+        {chapter.body.split("\n\n").map((paragraph: string) => <p>{paragraph}</p>)}
+      </section>
+    ))}
+  </article>
+</BaseLayout>
+
+<style>
+  .kicker {
+    margin: 0;
+    letter-spacing: 0.1em;
+    color: var(--accent-2);
+    font-size: 0.78rem;
+  }
+
+  h1 {
+    margin: 0.2rem 0 0;
+    font-size: clamp(1.4rem, 3.2vw, 2.3rem);
+  }
+
+  .lead {
+    color: var(--muted);
+    margin-top: 0.4rem;
+  }
+
+  .chapter {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  p {
+    margin: 0.7rem 0 0;
+    font-size: 1rem;
+  }
+
+  .actions {
+    margin-top: 1rem;
+  }
+</style>
