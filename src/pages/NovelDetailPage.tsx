@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { findNovel } from "../data/store";
+import { toAssetUrl } from "../lib/asset";
 
 export function NovelDetailPage() {
   const { slug = "" } = useParams();
@@ -17,7 +18,7 @@ export function NovelDetailPage() {
   return (
     <article className="detail-grid novels">
       <aside className="panel sticky-side">
-        <img className="detail-thumb" src={novel.thumbnail} alt={`${novel.workTitle} サムネイル`} loading="lazy" />
+        <img className="detail-thumb" src={toAssetUrl(novel.thumbnail)} alt={`${novel.workTitle} サムネイル`} loading="lazy" />
         <h1>{novel.workTitle}</h1>
         <p className="lead">{novel.lead}</p>
         <div className="stack-gap">

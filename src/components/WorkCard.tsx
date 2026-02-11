@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import type { Work } from "../types";
+import { toAssetUrl } from "../lib/asset";
 
 type Props = {
   work: Work;
@@ -9,7 +10,7 @@ export function WorkCard({ work }: Props) {
   return (
     <article className="panel work-card">
       <Link className="work-main" to={`/works/${work.slug}`} aria-label={`${work.title} の作品詳細へ`}>
-        <img className="work-thumb" src={work.thumbnail} alt={`${work.title} サムネイル`} loading="lazy" />
+        <img className="work-thumb" src={toAssetUrl(work.thumbnail)} alt={`${work.title} サムネイル`} loading="lazy" />
         <p className="work-sense">{work.sense}</p>
         <h3>{work.title}</h3>
         <p className="work-tagline">{work.tagline}</p>

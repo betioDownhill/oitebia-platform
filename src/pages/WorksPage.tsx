@@ -1,5 +1,6 @@
 import { WorkCard } from "../components/WorkCard";
 import { studioData, workList } from "../data/store";
+import { toAssetUrl } from "../lib/asset";
 
 export function WorksPage() {
   return (
@@ -42,7 +43,7 @@ export function WorksPage() {
         <div className="grid five-cols">
           {studioData.members.map((member) => (
             <article key={member.id} className="member-card">
-              <img src={member.thumbnail} alt={`${member.name} サムネイル`} loading="lazy" />
+              <img src={toAssetUrl(member.thumbnail)} alt={`${member.name} サムネイル`} loading="lazy" />
               <p className="member-name">{member.name}</p>
               <p>{member.role}</p>
               <p>{member.specialty}</p>

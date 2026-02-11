@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { findWork } from "../data/store";
+import { toAssetUrl } from "../lib/asset";
 
 export function WorkDetailPage() {
   const { slug = "" } = useParams();
@@ -17,7 +18,7 @@ export function WorkDetailPage() {
   return (
     <article className="detail-grid">
       <section className="panel">
-        <img className="detail-thumb" src={work.thumbnail} alt={`${work.title} サムネイル`} loading="lazy" />
+        <img className="detail-thumb" src={toAssetUrl(work.thumbnail)} alt={`${work.title} サムネイル`} loading="lazy" />
         <p className="work-sense">{work.sense}</p>
         <h1>{work.title}</h1>
         <p className="work-tagline">{work.tagline}</p>
