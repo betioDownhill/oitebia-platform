@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { WorkCard } from "../components/WorkCard";
-import { workList } from "../data/store";
+import { studioData, workList } from "../data/store";
+import { toAssetUrl } from "../lib/asset";
 
 export function HomePage() {
   return (
@@ -24,6 +25,40 @@ export function HomePage() {
         {workList.map((work) => (
           <WorkCard key={work.slug} work={work} />
         ))}
+      </section>
+
+      <section className="panel activity-block">
+        <h2>スタジオ活動</h2>
+        {studioData.fetchError ? <p className="warn">一部のスタジオ情報を更新中です。</p> : null}
+        <ul>
+          {studioData.activity.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+
+        <div className="metrics-grid">
+          {studioData.metrics.map((metric) => (
+            <article key={metric.label} className="metric-card">
+              <p>{metric.label}</p>
+              <strong>{metric.value}</strong>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="panel members-block">
+        <h2>メンバー紹介</h2>
+        <div className="grid five-cols">
+          {studioData.members.map((member) => (
+            <article key={member.id} className="member-card">
+              <img src={toAssetUrl(member.thumbnail)} alt={`${member.name} サムネイル`} loading="lazy" />
+              <p className="member-name">{member.name}</p>
+              <p>{member.role}</p>
+              <p>{member.specialty}</p>
+              <p>{member.catchphrase}</p>
+            </article>
+          ))}
+        </div>
       </section>
     </>
   );
