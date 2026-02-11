@@ -32,6 +32,8 @@ jobs:
         run: npm install
 
       - name: Build
+        env:
+          OITEBIA_STUDIO_READ_TOKEN: ${{ secrets.OITEBIA_STUDIO_READ_TOKEN }}
         run: npm run build
 
       - name: Upload artifact

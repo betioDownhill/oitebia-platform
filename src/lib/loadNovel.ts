@@ -3,6 +3,7 @@ import type { NovelSource } from "../data/novelSources";
 const OWNER = "betioDownhill";
 const REPO = "oitebia-studio";
 const BRANCH = "master";
+const TOKEN = process.env.OITEBIA_STUDIO_READ_TOKEN;
 
 export type NovelChapter = {
   id: string;
@@ -21,6 +22,10 @@ export type LoadedNovel = {
 
 function toRawUrl(path: string): string {
   return `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${path}`;
+}
+
+function toApiUrl(path: string): string {
+  return `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`;
 }
 
 function stripFrontmatter(input: string): string {
@@ -81,11 +86,39 @@ function parseChapters(markdown: string): NovelChapter[] {
 }
 
 export async function loadNovel(source: NovelSource): Promise<LoadedNovel> {
-  const sourceUrl = toRawUrl(source.path);
+  const sourceUrl = `https://github.com/${OWNER}/${REPO}/blob/${BRANCH}/${source.path}`;
+  const apiUrl = toApiUrl(source.path);
 
   try {
-    const response = await fetch(sourceUrl);
+    const response = await fetch(apiUrl, {
+      headers: TOKEN
+        ? {
+            Authorization: `Bearer ${TOKEN}`,
+            Accept: "application/vnd.github+json"
+          }
+        : {
+            Accept: "application/vnd.github+json"
+          }
+    });
+
     if (!response.ok) {
+      if (!TOKEN) {
+        return {
+          slug: source.slug,
+          workTitle: source.workTitle,
+          lead: "privateリポジトリ取得にはトークン設定が必要です。",
+          sourceUrl,
+          chapters: [
+            {
+              id: "chapter-1",
+              heading: "取得エラー",
+              body: "OITEBIA_STUDIO_READ_TOKEN が未設定のため本文を取得できませんでした。"
+            }
+          ],
+          fetchError: `${response.status} ${response.statusText}`
+        };
+      }
+
       return {
         slug: source.slug,
         workTitle: source.workTitle,
@@ -96,7 +129,21 @@ export async function loadNovel(source: NovelSource): Promise<LoadedNovel> {
       };
     }
 
-    const markdown = await response.text();
+    const payload = (await response.json()) as { content?: string; encoding?: string };
+    const encoded = payload.content?.replace(/\n/g, "");
+
+    if (!encoded || payload.encoding !== "base64") {
+      return {
+        slug: source.slug,
+        workTitle: source.workTitle,
+        lead: "oitebia-studio の本文取得に失敗しました。",
+        sourceUrl,
+        chapters: [{ id: "chapter-1", heading: "取得エラー", body: "本文データ形式が不正です。" }],
+        fetchError: "Invalid content payload"
+      };
+    }
+
+    const markdown = Buffer.from(encoded, "base64").toString("utf-8");
     return {
       slug: source.slug,
       workTitle: source.workTitle,

@@ -33,7 +33,11 @@ npm run preview
 1. リポジトリへpush
 2. GitHubの `Settings > Pages` を開く
 3. `Build and deployment` の `Source` を `GitHub Actions` に設定
-4. `Deploy to GitHub Pages` ワークフロー成功後に公開URLへ反映
+4. `Settings > Secrets and variables > Actions` に `OITEBIA_STUDIO_READ_TOKEN` を追加
+5. `Deploy to GitHub Pages` ワークフロー成功後に公開URLへ反映
+
+`OITEBIA_STUDIO_READ_TOKEN` は `oitebia-studio` (private) を読めるPATを設定してください。
+推奨は Fine-grained token で、repository access を `oitebia-studio` のみ、permission は `Contents: Read-only`。
 
 ## コンテンツ追加
 
@@ -46,4 +50,4 @@ npm run preview
 - 作品詳細ページ (`/works/<slug>`)
 
 `novelSources.ts` に追加すると、小説ページ (`/novels/<slug>`) が生成されます。
-本文は `oitebia-studio` の `raw.githubusercontent.com` からビルド時に取得します。
+本文は `oitebia-studio` を GitHub API でビルド時取得します（private対応）。
