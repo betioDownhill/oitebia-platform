@@ -410,13 +410,46 @@ h2 {
   align-self: start;
 }
 
-.toc-list {
-  margin: 0.7rem 0 0;
-  padding-left: 1.05rem;
-}
-
 .chapter-panel {
   padding: 1.2rem;
+}
+
+.chapter-toc {
+  display: flex;
+  gap: 0.55rem;
+  position: sticky;
+  top: 5.2rem;
+  z-index: 4;
+  background: color-mix(in oklab, #132338 88%, transparent);
+  border: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
+  border-radius: 12px;
+  padding: 0.42rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.chapter-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--line) 84%, transparent);
+  background: #16293d;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.9rem;
+}
+
+.chapter-pill:visited,
+.chapter-pill:hover {
+  color: var(--text);
+}
+
+.chapter-pill:hover {
+  background: #223a54;
 }
 
 .chapter-block + .chapter-block {
@@ -425,9 +458,99 @@ h2 {
   border-top: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
 }
 
-.chapter-block p {
-  margin: 0.66rem 0 0;
+.chapter-block h2 {
+  scroll-margin-top: 7.5rem;
+}
+
+.markdown-body {
   max-width: 72ch;
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0;
+}
+
+.markdown-body p,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body blockquote,
+.markdown-body pre,
+.markdown-body hr {
+  margin: 0.78rem 0 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 1.25rem;
+}
+
+.markdown-body li + li {
+  margin-top: 0.32rem;
+}
+
+.markdown-body strong {
+  color: #ffffff;
+}
+
+.markdown-body em {
+  color: #d5e5ff;
+}
+
+.markdown-body blockquote {
+  border-left: 3px solid color-mix(in oklab, var(--brand) 55%, var(--line));
+  background: #132338;
+  border-radius: 8px;
+  padding: 0.45rem 0.7rem;
+}
+
+.markdown-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: #0f1c2c;
+  border: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
+  border-radius: 6px;
+  padding: 0.06rem 0.32rem;
+}
+
+.markdown-body pre {
+  background: #0f1c2c;
+  border: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
+  border-radius: 10px;
+  padding: 0.75rem 0.85rem;
+  overflow-x: auto;
+}
+
+.markdown-body pre code {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.markdown-body hr {
+  border: none;
+  border-top: 1px solid color-mix(in oklab, var(--line) 90%, transparent);
+}
+
+.markdown-body a:visited {
+  color: var(--link);
+}
+
+.markdown-body a:hover {
+  color: var(--link-hover);
+}
+
+@media (max-width: 920px) {
+  .chapter-toc {
+    top: 4.7rem;
+    margin-bottom: 0.7rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .chapter-pill {
+    min-height: 38px;
+    font-size: 0.85rem;
+  }
 }
 
 @media (max-width: 1080px) {

@@ -1,4 +1,6 @@
 import { Link, useParams } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { findNovel } from "../data/store";
 import { toAssetUrl } from "../lib/asset";
 
@@ -29,24 +31,23 @@ export function NovelDetailPage() {
             作品一覧へ
           </Link>
         </div>
-        <h2>章目次</h2>
-        <ol className="toc-list">
-          {novel.chapters.map((chapter) => (
-            <li key={chapter.id}>
-              <a href={`#${chapter.id}`}>{chapter.heading}</a>
-            </li>
-          ))}
-        </ol>
         {novel.fetchError ? <p className="warn">取得状態: {novel.fetchError}</p> : null}
       </aside>
 
       <section className="panel chapter-panel">
+        <nav className="chapter-toc" aria-label="章目次">
+          {novel.chapters.map((chapter) => (
+            <a key={chapter.id} className="chapter-pill" href={`#${chapter.id}`}>
+              {chapter.heading}
+            </a>
+          ))}
+        </nav>
         {novel.chapters.map((chapter) => (
           <section key={chapter.id} id={chapter.id} className="chapter-block">
             <h2>{chapter.heading}</h2>
-            {chapter.body.split("\n\n").map((paragraph, index) => (
-              <p key={`${chapter.id}-${index}`}>{paragraph}</p>
-            ))}
+            <div className="markdown-body">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{chapter.body}</ReactMarkdown>
+            </div>
           </section>
         ))}
       </section>
