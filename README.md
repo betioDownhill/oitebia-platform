@@ -14,6 +14,10 @@ Oitebia Studio向けの公開サイトです。Astroで構築し、GitHub Pages�
 - GitHub Actions (Pagesデプロイ)
 - GitHub Pages
 
+## UI/UX 方針
+
+調査メモと設計判断は `docs/ui-ux-research.md` に記録しています。
+
 ## ローカル開発
 
 ```bash

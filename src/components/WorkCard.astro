@@ -12,39 +12,47 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^
 <article class="card panel">
   <p class="sense">{work.sense}</p>
   <h3>{work.title}</h3>
-  <p>{work.tagline}</p>
+  <p class="tagline">{work.tagline}</p>
   <p class="muted">{work.highlight}</p>
   <div class="actions">
-    <a class="btn" href={withBase(`/works/${work.slug}`)}>作品詳細へ</a>
+    <a class="btn primary" href={withBase(`/works/${work.slug}`)}>作品詳細</a>
     <a class="btn" href={withBase(`/novels/${work.novelSlug}`)}>小説を読む</a>
   </div>
 </article>
 
 <style>
-  .card h3 {
-    margin: 0.2rem 0 0.2rem;
-    font-size: 1.15rem;
-  }
-
-  .card p {
-    margin: 0.2rem 0;
+  .card {
+    display: grid;
+    gap: 0.45rem;
   }
 
   .sense {
-    font-size: 0.8rem;
-    color: var(--accent-2);
+    margin: 0;
+    color: var(--ok);
     letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  h3 {
+    margin: 0.1rem 0 0;
+    font-size: 1.35rem;
+  }
+
+  .tagline {
+    margin: 0;
+    font-size: 1.04rem;
   }
 
   .muted {
-    color: var(--muted);
-    font-size: 0.9rem;
+    margin: 0;
+    font-size: 0.93rem;
   }
 
   .actions {
-    margin-top: 0.8rem;
+    margin-top: 0.45rem;
     display: flex;
-    gap: 0.7rem;
     flex-wrap: wrap;
+    gap: 0.7rem;
   }
 </style>

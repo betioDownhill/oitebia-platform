@@ -7,7 +7,14 @@ import { works } from "../../data/works";
 <BaseLayout title="作品一覧 | Oitebia Studio">
   <section class="panel intro">
     <h1>Works</h1>
-    <p>五感シリーズを中心に、短編アニメ化を前提とした制作パッケージを公開しています。</p>
+    <p>
+      作品ごとに「作品詳細」と「小説」へ最短で進める構成です。初見は詳細、既存ファンは小説直行を想定しています。
+    </p>
+    <ul class="hints">
+      <li><strong>視覚:</strong> 映像的没入を重視</li>
+      <li><strong>聴覚:</strong> 音と記憶の物語設計</li>
+      <li><strong>触覚:</strong> 感情の手触りを重視</li>
+    </ul>
   </section>
 
   <section class="grid-wrap">
@@ -18,12 +25,22 @@ import { works } from "../../data/works";
 <style>
   h1 {
     margin: 0;
-    font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+    font-size: clamp(1.8rem, 4.2vw, 3rem);
   }
 
   .intro p {
-    margin: 0.4rem 0 0;
+    margin: 0.55rem 0 0;
     color: var(--muted);
+  }
+
+  .hints {
+    margin: 0.75rem 0 0;
+    padding: 0 0 0 1.1rem;
+    color: var(--muted);
+  }
+
+  .hints li {
+    margin: 0.2rem 0;
   }
 
   .grid-wrap {
@@ -33,7 +50,7 @@ import { works } from "../../data/works";
     gap: 0.9rem;
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
     .grid-wrap {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }

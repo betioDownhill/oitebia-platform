@@ -8,16 +8,36 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^
 
 <BaseLayout title="Oitebia Studio | 五感シリーズ" description="小説から映像へ。五感シリーズの制作ポータル。">
   <section class="hero panel">
-    <p class="eyebrow">AI AGENT x HUMAN CREATIVE STUDIO</p>
+    <p class="eyebrow">AI AGENT × HUMAN CREATIVE STUDIO</p>
     <h1>世界のサインを、<br />物語・歌・映像へ。</h1>
     <p class="lead">
-      Oitebia Studioは、小説を核に音楽・ビジュアル・映像を統合して短編アニメーションを制作するスタジオです。
-      まずは一作に触れて、世界観に没入してください。
+      小説を起点に、音楽・ビジュアル・映像を連携して短編アニメへ。初見の方はまず1作品の詳細へ、
+      読みたい方は小説へ進んでください。
     </p>
     <div class="cta-row">
-      <a class="btn primary" href={withBase("/works")}>作品をみる</a>
-      <a class="btn" href={withBase("/novels/yui-miracle")}>小説を読む</a>
+      <a class="btn primary" href={withBase("/works")}>まず1作品みる</a>
+      <a class="btn" href={withBase("/novels/yui-miracle")}>小説から入る</a>
     </div>
+
+    <div class="flow" aria-label="体験フロー">
+      <div class="step">
+        <h2>1. 作品を選ぶ</h2>
+        <p>五感シリーズから気になる1作を選択。</p>
+      </div>
+      <div class="step">
+        <h2>2. 世界観に触れる</h2>
+        <p>あらすじ・ビジュアル・制作意図で理解。</p>
+      </div>
+      <div class="step">
+        <h2>3. 小説を読む</h2>
+        <p>作品ページから本文へ移動して没入。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="heading-row">
+    <h2>Featured Works</h2>
+    <a href={withBase("/works")}>すべての作品を見る</a>
   </section>
 
   <section class="grid-wrap">
@@ -27,50 +47,98 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^
 
 <style>
   .hero {
-    padding: 1.5rem;
+    padding: clamp(1.1rem, 2.6vw, 2rem);
   }
 
   .eyebrow {
     margin: 0;
-    letter-spacing: 0.1em;
-    font-size: 0.78rem;
-    color: var(--accent-2);
+    font-size: 0.8rem;
+    letter-spacing: 0.11em;
+    color: var(--ok);
+    font-weight: 700;
   }
 
   h1 {
-    margin: 0.4rem 0 0.7rem;
+    margin: 0.5rem 0 0;
     line-height: 1.25;
-    font-size: clamp(1.7rem, 3.8vw, 3rem);
+    font-size: clamp(2rem, 5.3vw, 4rem);
   }
 
   .lead {
-    max-width: 62ch;
+    margin: 0.85rem 0 0;
+    max-width: 66ch;
     color: var(--muted);
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
   }
 
   .cta-row {
     margin-top: 1rem;
     display: flex;
-    gap: 0.8rem;
+    gap: 0.7rem;
     flex-wrap: wrap;
   }
 
-  .grid-wrap {
+  .flow {
+    margin-top: 1.3rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .step {
+    border: 1px solid color-mix(in oklab, var(--line) 78%, transparent);
+    border-radius: 16px;
+    padding: 0.9rem;
+    background: #111f30;
+  }
+
+  .step h2 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  .step p {
+    margin: 0.32rem 0 0;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+
+  .heading-row {
     margin-top: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.8rem;
+  }
+
+  .heading-row h2 {
+    margin: 0;
+    font-size: clamp(1.3rem, 2.8vw, 2rem);
+  }
+
+  .grid-wrap {
+    margin-top: 0.8rem;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.9rem;
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 980px) {
+    .flow,
     .grid-wrap {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
   @media (max-width: 680px) {
+    .flow,
     .grid-wrap {
       grid-template-columns: 1fr;
+    }
+
+    .heading-row {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 </style>

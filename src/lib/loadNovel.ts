@@ -20,10 +20,6 @@ export type LoadedNovel = {
   fetchError?: string;
 };
 
-function toRawUrl(path: string): string {
-  return `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${path}`;
-}
-
 function toApiUrl(path: string): string {
   return `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`;
 }

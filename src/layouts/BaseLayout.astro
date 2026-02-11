@@ -9,7 +9,12 @@ const {
   description = "世界のサインを、物語・歌・映像へ。"
 } = Astro.props;
 
+const currentPath = Astro.url.pathname;
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+const isActive = (path: string) => {
+  const target = withBase(path);
+  return path === "/" ? currentPath === target : currentPath.startsWith(target);
+};
 ---
 
 <!doctype html>
@@ -20,14 +25,21 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^
     <meta name="description" content={description} />
     <title>{title}</title>
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Old+Mincho:wght@400;700&display=swap");
+
       :root {
-        --bg: #0c1117;
-        --bg-soft: #131b24;
-        --line: #29384a;
-        --text: #f7f5f0;
-        --muted: #b0bdca;
-        --accent: #ffc668;
-        --accent-2: #78e0c3;
+        --bg: #091019;
+        --bg-2: #101a27;
+        --panel: #122033cc;
+        --line: #2a3d55;
+        --text: #f2f7ff;
+        --muted: #acc0d8;
+        --brand: #ffd279;
+        --link: #86cdff;
+        --link-hover: #b5e3ff;
+        --link-visited: #bea9ff;
+        --focus: #ffb84d;
+        --ok: #7ce5c7;
       }
 
       * {
@@ -38,115 +50,222 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^
         margin: 0;
         color: var(--text);
         background:
-          radial-gradient(circle at 10% 20%, #22374f 0%, transparent 36%),
-          radial-gradient(circle at 90% 0%, #4f2d2a 0%, transparent 30%),
-          linear-gradient(180deg, #0b1016 0%, #131b24 100%);
-        font-family: "Hiragino Mincho ProN", "Yu Mincho", "BIZ UDPMincho", serif;
-        line-height: 1.8;
+          radial-gradient(1200px 540px at -8% -12%, #294565 0%, transparent 52%),
+          radial-gradient(880px 420px at 100% 0%, #5a2e2f 0%, transparent 52%),
+          linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+        font-family: "Noto Sans JP", sans-serif;
+        line-height: 1.75;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Zen Old Mincho", serif;
+        line-height: 1.35;
+        letter-spacing: 0.01em;
       }
 
       a {
-        color: inherit;
+        color: var(--link);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+      }
+
+      a:visited {
+        color: var(--link-visited);
+      }
+
+      a:hover {
+        color: var(--link-hover);
+      }
+
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+        border-radius: 8px;
+      }
+
+      .skip {
+        position: absolute;
+        left: 0.8rem;
+        top: -100px;
+        z-index: 50;
+        background: #fefefe;
+        color: #10151d;
+        font-weight: 700;
+        padding: 0.45rem 0.7rem;
+        border-radius: 8px;
+      }
+
+      .skip:focus {
+        top: 0.8rem;
       }
 
       .shell {
-        width: min(1100px, 92vw);
+        width: min(1140px, 92vw);
         margin: 0 auto;
       }
 
-      header {
+      header.site-header {
         position: sticky;
         top: 0;
         z-index: 20;
-        background: color-mix(in oklab, #0b1016 80%, transparent);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--line);
+        border-bottom: 1px solid color-mix(in oklab, var(--line) 85%, transparent);
+        background: color-mix(in oklab, #0b121d 78%, transparent);
+        backdrop-filter: blur(8px);
       }
 
       nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0.9rem 0;
+        gap: 1.2rem;
+        padding: 0.95rem 0;
       }
 
-      nav .brand {
-        font-size: 0.95rem;
-        letter-spacing: 0.08em;
+      .brand {
+        color: var(--text);
+        text-decoration: none;
+        font-family: "Zen Old Mincho", serif;
+        font-size: 1.25rem;
+        letter-spacing: 0.03em;
       }
 
-      nav ul {
+      .brand:visited {
+        color: var(--text);
+      }
+
+      .nav-list {
         list-style: none;
         display: flex;
-        gap: 1.2rem;
+        gap: 1rem;
         margin: 0;
         padding: 0;
-        font-size: 0.88rem;
+      }
+
+      .nav-link {
+        color: var(--text);
+        text-decoration: none;
+        border-radius: 999px;
+        padding: 0.42rem 0.78rem;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid transparent;
+      }
+
+      .nav-link:visited {
+        color: var(--text);
+      }
+
+      .nav-link:hover {
+        border-color: var(--line);
+        background: color-mix(in oklab, #ffffff 8%, transparent);
+      }
+
+      .nav-link.current {
+        border-color: color-mix(in oklab, var(--brand) 65%, var(--line));
+        color: var(--brand);
       }
 
       main {
-        padding: 2.2rem 0 4rem;
+        padding: 2rem 0 4rem;
       }
 
       .panel {
-        background: color-mix(in oklab, var(--bg-soft) 85%, transparent);
-        border: 1px solid var(--line);
-        border-radius: 20px;
-        padding: 1.2rem;
+        background: linear-gradient(180deg, #14243acc 0%, #122033c7 100%);
+        border: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
+        border-radius: 22px;
+        box-shadow: inset 0 1px 0 #ffffff12;
+        padding: 1.25rem;
       }
 
       .btn {
-        display: inline-block;
-        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0.62rem 1rem;
         border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
         border: 1px solid var(--line);
-        padding: 0.55rem 1rem;
-        font-size: 0.9rem;
+        color: var(--text);
+        background: #1a2a3f;
+      }
+
+      .btn:visited {
+        color: var(--text);
+      }
+
+      .btn:hover {
+        color: var(--text);
+        background: #223852;
       }
 
       .btn.primary {
-        background: linear-gradient(120deg, var(--accent), #f09a6f);
-        color: #1f1204;
         border: none;
-        font-weight: 700;
+        color: #1c1202;
+        background: linear-gradient(120deg, var(--brand), #ffab78);
+      }
+
+      .btn.primary:visited {
+        color: #1c1202;
+      }
+
+      .btn.primary:hover {
+        background: linear-gradient(120deg, #ffdc95, #ffb78d);
+      }
+
+      .muted {
+        color: var(--muted);
       }
 
       footer {
-        border-top: 1px solid var(--line);
+        border-top: 1px solid color-mix(in oklab, var(--line) 85%, transparent);
         color: var(--muted);
         padding: 1.4rem 0 3rem;
-        font-size: 0.8rem;
+        font-size: 0.86rem;
       }
 
-      @media (max-width: 760px) {
+      @media (max-width: 780px) {
         nav {
           flex-direction: column;
           align-items: flex-start;
-          gap: 0.8rem;
         }
 
-        nav ul {
+        .nav-list {
           flex-wrap: wrap;
-          gap: 0.8rem;
+          gap: 0.7rem;
         }
       }
     </style>
   </head>
   <body>
-    <header>
+    <a class="skip" href="#main-content">本文へスキップ</a>
+    <header class="site-header">
       <div class="shell">
         <nav>
-          <div class="brand"><a href={withBase("/")}>Oitebia Studio</a></div>
-          <ul>
-            <li><a href={withBase("/")}>Top</a></li>
-            <li><a href={withBase("/works")}>Works</a></li>
-            <li><a href={withBase("/novels/yui-miracle")}>Novel</a></li>
-            <li><a href="https://github.com/betioDownhill/oitebia-studio">GitHub</a></li>
+          <a class="brand" href={withBase("/")}>Oitebia Studio</a>
+          <ul class="nav-list">
+            <li>
+              <a class:list={["nav-link", isActive("/") && "current"]} href={withBase("/")}>Top</a>
+            </li>
+            <li>
+              <a class:list={["nav-link", isActive("/works") && "current"]} href={withBase("/works")}>Works</a>
+            </li>
+            <li>
+              <a class:list={["nav-link", isActive("/novels") && "current"]} href={withBase("/novels/yui-miracle")}>Novel</a>
+            </li>
+            <li>
+              <a class="nav-link" href="https://github.com/betioDownhill/oitebia-studio">GitHub</a>
+            </li>
           </ul>
         </nav>
       </div>
     </header>
-    <main>
+    <main id="main-content">
       <div class="shell">
         <slot />
       </div>
