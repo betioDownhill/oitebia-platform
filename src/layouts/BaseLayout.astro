@@ -35,9 +35,9 @@ const isActive = (path: string) => {
         --text: #f2f7ff;
         --muted: #acc0d8;
         --brand: #ffd279;
-        --link: #86cdff;
-        --link-hover: #b5e3ff;
-        --link-visited: #bea9ff;
+        --link: #9be4ff;
+        --link-hover: #d0f3ff;
+        --link-visited: #ffd98a;
         --focus: #ffb84d;
         --ok: #7ce5c7;
       }
@@ -256,10 +256,7 @@ const isActive = (path: string) => {
               <a class:list={["nav-link", isActive("/works") && "current"]} href={withBase("/works")}>Works</a>
             </li>
             <li>
-              <a class:list={["nav-link", isActive("/novels") && "current"]} href={withBase("/novels/yui-miracle")}>Novel</a>
-            </li>
-            <li>
-              <a class="nav-link" href="https://github.com/betioDownhill/oitebia-studio">GitHub</a>
+              <a class:list={["nav-link", isActive("/novels") && "current"]} href={withBase("/novels")}>Novel</a>
             </li>
           </ul>
         </nav>

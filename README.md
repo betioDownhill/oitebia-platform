@@ -47,6 +47,7 @@ npm run preview
 
 - 作品データ: `src/data/works.ts`
 - 小説参照元: `src/data/novelSources.ts`
+- スタジオ情報取得: `src/lib/loadStudioData.ts`
 
 `works.ts` に作品を追加すると、以下が自動生成されます。
 
@@ -54,4 +55,15 @@ npm run preview
 - 作品詳細ページ (`/works/<slug>`)
 
 `novelSources.ts` に追加すると、小説ページ (`/novels/<slug>`) が生成されます。
-本文は `oitebia-studio` を GitHub API でビルド時取得します（private対応）。
+本文は private リポジトリを GitHub API でビルド時取得します（`OITEBIA_STUDIO_READ_TOKEN` 必須）。
+
+## 画面構成
+
+- `Top`: 初見向け導線と代表作品
+- `Novel`: 小説一覧（サムネイル付き）→ 各本文ページ
+- `Works`: 作品一覧 + スタジオ活動 + メンバー紹介
+
+## 画像差し替え
+
+- 小説サムネイル: `public/images/novels/*.svg` を同名で実画像に差し替え
+- メンバー画像: `public/images/members/*.svg` を同名で実画像に差し替え

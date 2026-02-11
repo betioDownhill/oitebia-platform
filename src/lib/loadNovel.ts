@@ -1,9 +1,5 @@
 import type { NovelSource } from "../data/novelSources";
-
-const OWNER = "betioDownhill";
-const REPO = "oitebia-studio";
-const BRANCH = "master";
-const TOKEN = process.env.OITEBIA_STUDIO_READ_TOKEN;
+import { fetchPrivateRepoMarkdown } from "./githubRepoContent";
 
 export type NovelChapter = {
   id: string;
@@ -15,14 +11,9 @@ export type LoadedNovel = {
   slug: string;
   workTitle: string;
   lead: string;
-  sourceUrl: string;
   chapters: NovelChapter[];
   fetchError?: string;
 };
-
-function toApiUrl(path: string): string {
-  return `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`;
-}
 
 function stripFrontmatter(input: string): string {
   if (!input.startsWith("---")) {
@@ -82,79 +73,22 @@ function parseChapters(markdown: string): NovelChapter[] {
 }
 
 export async function loadNovel(source: NovelSource): Promise<LoadedNovel> {
-  const sourceUrl = `https://github.com/${OWNER}/${REPO}/blob/${BRANCH}/${source.path}`;
-  const apiUrl = toApiUrl(source.path);
+  const result = await fetchPrivateRepoMarkdown(source.path);
 
-  try {
-    const response = await fetch(apiUrl, {
-      headers: TOKEN
-        ? {
-            Authorization: `Bearer ${TOKEN}`,
-            Accept: "application/vnd.github+json"
-          }
-        : {
-            Accept: "application/vnd.github+json"
-          }
-    });
-
-    if (!response.ok) {
-      if (!TOKEN) {
-        return {
-          slug: source.slug,
-          workTitle: source.workTitle,
-          lead: "privateリポジトリ取得にはトークン設定が必要です。",
-          sourceUrl,
-          chapters: [
-            {
-              id: "chapter-1",
-              heading: "取得エラー",
-              body: "OITEBIA_STUDIO_READ_TOKEN が未設定のため本文を取得できませんでした。"
-            }
-          ],
-          fetchError: `${response.status} ${response.statusText}`
-        };
-      }
-
-      return {
-        slug: source.slug,
-        workTitle: source.workTitle,
-        lead: "oitebia-studio の本文取得に失敗しました。",
-        sourceUrl,
-        chapters: [{ id: "chapter-1", heading: "取得エラー", body: "本文を取得できませんでした。" }],
-        fetchError: `${response.status} ${response.statusText}`
-      };
-    }
-
-    const payload = (await response.json()) as { content?: string; encoding?: string };
-    const encoded = payload.content?.replace(/\n/g, "");
-
-    if (!encoded || payload.encoding !== "base64") {
-      return {
-        slug: source.slug,
-        workTitle: source.workTitle,
-        lead: "oitebia-studio の本文取得に失敗しました。",
-        sourceUrl,
-        chapters: [{ id: "chapter-1", heading: "取得エラー", body: "本文データ形式が不正です。" }],
-        fetchError: "Invalid content payload"
-      };
-    }
-
-    const markdown = Buffer.from(encoded, "base64").toString("utf-8");
+  if (!result.ok || !result.content) {
     return {
       slug: source.slug,
       workTitle: source.workTitle,
-      lead: "oitebia-studio の小説本文を参照しています。",
-      sourceUrl,
-      chapters: parseChapters(markdown)
-    };
-  } catch (error) {
-    return {
-      slug: source.slug,
-      workTitle: source.workTitle,
-      lead: "oitebia-studio への通信に失敗したため、本文を取得できませんでした。",
-      sourceUrl,
-      chapters: [{ id: "chapter-1", heading: "通信エラー", body: "本文取得時に通信エラーが発生しました。" }],
-      fetchError: error instanceof Error ? error.message : "Unknown error"
+      lead: "作品本文の取得に失敗しました。",
+      chapters: [{ id: "chapter-1", heading: "取得エラー", body: "本文を取得できませんでした。" }],
+      fetchError: result.error
     };
   }
+
+  return {
+    slug: source.slug,
+    workTitle: source.workTitle,
+    lead: "本文はスタジオ原本から同期しています。",
+    chapters: parseChapters(result.content)
+  };
 }

@@ -13,6 +13,7 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^
 <BaseLayout title={`${work.title} | Oitebia Studio`} description={work.synopsis}>
   <article class="detail-grid">
     <section class="panel main">
+      <img class="hero-thumb" src={work.thumbnail} alt={`${work.title} サムネイル`} loading="lazy" />
       <p class="sense">{work.sense}</p>
       <h1>{work.title}</h1>
       <p class="tagline">{work.tagline}</p>
@@ -30,10 +31,10 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^
       <h2>次に見てほしいもの</h2>
       <ul>
         <li>小説本文</li>
-        <li>制作ログ（GitHub）</li>
+        <li>メンバーコメント（追加予定）</li>
         <li>映像ティザー公開</li>
       </ul>
-      <a class="btn" href={work.ctaUrl}>GitHub制作ログへ</a>
+      <a class="btn" href={withBase(`/novels/${work.novelSlug}`)}>小説ページへ</a>
       <a class="btn" href={withBase("/works")}>作品一覧へ戻る</a>
     </aside>
   </article>
@@ -52,6 +53,16 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^
     letter-spacing: 0.1em;
     font-size: 0.8rem;
     font-weight: 700;
+  }
+
+  .hero-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 8;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
+    background: #0f1b2a;
+    margin-bottom: 0.6rem;
   }
 
   h1 {
