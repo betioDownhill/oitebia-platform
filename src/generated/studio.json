@@ -1,0 +1,68 @@
+{
+  "members": [
+    {
+      "id": "oite",
+      "name": "Oite",
+      "role": "統括・小説",
+      "specialty": "原作執筆、方向性決定",
+      "catchphrase": "今日は勝ちにいく。積み上げるだけ。",
+      "thumbnail": "/images/members/oite.svg"
+    },
+    {
+      "id": "melody",
+      "name": "Melody",
+      "role": "音楽",
+      "specialty": "BGM、効果音、音響設計",
+      "catchphrase": "物語が聞こえる。",
+      "thumbnail": "/images/members/melody.svg"
+    },
+    {
+      "id": "visu",
+      "name": "Visu",
+      "role": "映像",
+      "specialty": "絵コンテ、アニメーション",
+      "catchphrase": "見たことのない映像を作る。",
+      "thumbnail": "/images/members/visu.svg"
+    },
+    {
+      "id": "aria",
+      "name": "Aria",
+      "role": "デザイン",
+      "specialty": "キャラデザ、背景、ブランド",
+      "catchphrase": "美しいものには理由がある。",
+      "thumbnail": "/images/members/aria.svg"
+    },
+    {
+      "id": "betty",
+      "name": "Betty",
+      "role": "品質監査",
+      "specialty": "矛盾検出、構造監査",
+      "catchphrase": "完璧は細部に宿る。",
+      "thumbnail": "/images/members/betty.svg"
+    }
+  ],
+  "metrics": [
+    {
+      "label": "作品数",
+      "value": "5作品（五感シリーズ）"
+    },
+    {
+      "label": "総文字数",
+      "value": "約40,890文字"
+    },
+    {
+      "label": "ストーリーボード",
+      "value": "157カット"
+    },
+    {
+      "label": "楽曲計画",
+      "value": "16曲"
+    }
+  ],
+  "activity": [
+    "小説本文の整備と公開導線の設計",
+    "ビジュアル・音楽・映像の制作統合フロー整備",
+    "短編アニメーション公開に向けた連携作業"
+  ],
+  "fetchError": "OITEBIA_STUDIO_READ_TOKEN が未設定です"
+}

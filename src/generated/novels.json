@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "yui-miracle",
+    "workTitle": "AIアニメーター・ユイの小さな奇跡",
+    "sense": "視覚",
+    "teaser": "描いたイラストが3分だけ現実になる。",
+    "thumbnail": "/images/novels/yui-miracle.svg",
+    "lead": "作品本文の取得に失敗しました。",
+    "fetchError": "OITEBIA_STUDIO_READ_TOKEN が未設定です",
+    "chapters": [
+      {
+        "id": "chapter-1",
+        "heading": "取得エラー",
+        "body": "本文を取得できませんでした。"
+      }
+    ]
+  },
+  {
+    "slug": "last-tuner",
+    "workTitle": "最後の調律師",
+    "sense": "聴覚",
+    "teaser": "ピアノに刻まれた記憶が聴こえる。",
+    "thumbnail": "/images/novels/last-tuner.svg",
+    "lead": "作品本文の取得に失敗しました。",
+    "fetchError": "OITEBIA_STUDIO_READ_TOKEN が未設定です",
+    "chapters": [
+      {
+        "id": "chapter-1",
+        "heading": "取得エラー",
+        "body": "本文を取得できませんでした。"
+      }
+    ]
+  },
+  {
+    "slug": "kintsugi-touch",
+    "workTitle": "継ぎの痕",
+    "sense": "触覚",
+    "teaser": "壊れた器に触れると、感情が流れ込む。",
+    "thumbnail": "/images/novels/kintsugi-touch.svg",
+    "lead": "作品本文の取得に失敗しました。",
+    "fetchError": "OITEBIA_STUDIO_READ_TOKEN が未設定です",
+    "chapters": [
+      {
+        "id": "chapter-1",
+        "heading": "取得エラー",
+        "body": "本文を取得できませんでした。"
+      }
+    ]
+  }
+]
