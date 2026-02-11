@@ -30,6 +30,7 @@ npm run preview
 
 - 小説本文データ
 - スタジオ活動/メンバー/メトリクス
+- 小説一覧（5作品想定。`projects/*/story/final/*.md` を自動検出）
 
 必要な Secrets:
 
@@ -41,16 +42,22 @@ npm run preview
 - Repository access: `oitebia-studio` のみ
 - Permission: `Contents: Read-only`
 
+## 自動更新フロー
+
+- `Deploy to GitHub Pages` は `main`/`master` push 時に実行
+- さらに `6時間ごと` に定期実行（private側の更新取り込み用）
+- 必要に応じて `Actions > Deploy to GitHub Pages > Run workflow` で手動即時反映
+
 ## 画面構成
 
 - `Top`: 初見向け導線と代表作品
-- `Works`: 作品一覧 + スタジオ活動 + メンバー紹介
+- `Works`: スタジオ活動 + メンバー紹介（小説カードなし）
 - `Novel`: 小説一覧（サムネイル付き）
 - `Novel Detail`: 章目次付き本文ページ
 
 ## 画像差し替え
 
-- 小説サムネイル: `public/images/novels/*.svg`
-- メンバー画像: `public/images/members/*.svg`
+- 現在は共通画像: `public/images/sample.png` を参照
+- 今後、作品別/メンバー別に分ける場合は `src/data/works.ts` と同期スクリプト `scripts/sync-studio-data.mjs` の `thumbnail` を更新
 
-同名で実画像に置き換えるだけで反映できます。
+差し替え後は push か Actions 手動実行で反映できます。

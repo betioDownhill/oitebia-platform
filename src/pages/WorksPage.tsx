@@ -1,6 +1,6 @@
-import { WorkCard } from "../components/WorkCard";
-import { studioData, workList } from "../data/store";
+import { studioData } from "../data/store";
 import { toAssetUrl } from "../lib/asset";
+import { Link } from "react-router-dom";
 
 export function WorksPage() {
   return (
@@ -8,16 +8,15 @@ export function WorksPage() {
       <section className="panel intro">
         <h1>Works & Studio</h1>
         <p className="lead">
-          作品一覧に加え、スタジオ活動状況とメンバー紹介を表示します。
-          情報はビルド時に同期して公開します。
+          このページは、スタジオ活動状況とメンバー紹介に特化しています。
+          小説は `Novel` から、作品本文に集中して閲覧できます。
         </p>
+        <div className="hero-actions">
+          <Link className="button" to="/novels">
+            小説一覧へ
+          </Link>
+        </div>
         {studioData.fetchError ? <p className="warn">同期状態: {studioData.fetchError}</p> : null}
-      </section>
-
-      <section className="grid three-cols">
-        {workList.map((work) => (
-          <WorkCard key={work.slug} work={work} />
-        ))}
       </section>
 
       <section className="panel activity-block">

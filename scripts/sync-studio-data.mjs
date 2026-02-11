@@ -6,32 +6,45 @@ const REPO = "oitebia-studio";
 const BRANCH = "master";
 const TOKEN = process.env.OITEBIA_STUDIO_READ_TOKEN;
 
-const novelSources = [
-  {
+const projectMeta = {
+  "yui-miracle": {
     slug: "yui-miracle",
     workTitle: "AIアニメーター・ユイの小さな奇跡",
     sense: "視覚",
     teaser: "描いたイラストが3分だけ現実になる。",
-    thumbnail: "/images/sample.png",
-    path: "projects/yui-miracle/story/final/yui-final-oitebia.md"
+    thumbnail: "/images/sample.png"
   },
-  {
+  "last-tuner": {
     slug: "last-tuner",
     workTitle: "最後の調律師",
     sense: "聴覚",
     teaser: "ピアノに刻まれた記憶が聴こえる。",
-    thumbnail: "/images/sample.png",
-    path: "projects/last-tuner/story/final/last-tuner-final.md"
+    thumbnail: "/images/sample.png"
   },
-  {
+  work3: {
     slug: "kintsugi-touch",
     workTitle: "継ぎの痕",
     sense: "触覚",
     teaser: "壊れた器に触れると、感情が流れ込む。",
-    thumbnail: "/images/sample.png",
-    path: "projects/work3/story/final/work3-final.md"
+    thumbnail: "/images/sample.png"
+  },
+  work4: {
+    slug: "residual-scent",
+    workTitle: "残り香",
+    sense: "嗅覚",
+    teaser: "人の記憶を香りとして嗅ぎ取る。",
+    thumbnail: "/images/sample.png"
+  },
+  work5: {
+    slug: "taste-blind",
+    workTitle: "味知らず",
+    sense: "味覚",
+    teaser: "感情を味として感じ取る食堂の物語。",
+    thumbnail: "/images/sample.png"
   }
-];
+};
+
+const fallbackOrder = ["yui-miracle", "last-tuner", "work3", "work4", "work5"];
 
 const fallbackMembers = [
   {
@@ -93,7 +106,7 @@ function apiUrl(filePath) {
   return `https://api.github.com/repos/${OWNER}/${REPO}/contents/${filePath}?ref=${BRANCH}`;
 }
 
-async function fetchRepoText(filePath) {
+async function fetchRepoJson(filePath) {
   const res = await fetch(apiUrl(filePath), {
     headers: TOKEN
       ? {
@@ -109,13 +122,104 @@ async function fetchRepoText(filePath) {
     throw new Error(`${filePath}: ${res.status} ${res.statusText}`);
   }
 
-  const payload = await res.json();
+  return res.json();
+}
+
+async function fetchRepoText(filePath) {
+  const payload = await fetchRepoJson(filePath);
   const encoded = payload.content?.replace(/\n/g, "");
   if (!encoded || payload.encoding !== "base64") {
     throw new Error(`${filePath}: invalid content payload`);
   }
-
   return Buffer.from(encoded, "base64").toString("utf-8");
+}
+
+function fallbackNovelSources() {
+  return fallbackOrder
+    .map((project) => {
+      const meta = projectMeta[project];
+      if (!meta) {
+        return null;
+      }
+      return {
+        ...meta,
+        path: `projects/${project}/story/final/ep01.md`
+      };
+    })
+    .filter(Boolean);
+}
+
+function normalizeProjectMeta(projectName) {
+  const known = projectMeta[projectName];
+  if (known) {
+    return known;
+  }
+
+  return {
+    slug: projectName,
+    workTitle: projectName,
+    sense: "未設定",
+    teaser: "制作中の作品です。",
+    thumbnail: "/images/sample.png"
+  };
+}
+
+async function discoverNovelSources() {
+  if (!TOKEN) {
+    return fallbackNovelSources();
+  }
+
+  try {
+    const projectEntries = await fetchRepoJson("projects");
+    const projectDirs = projectEntries
+      .filter((entry) => entry.type === "dir")
+      .map((entry) => entry.name);
+
+    const sources = [];
+
+    for (const projectName of projectDirs) {
+      try {
+        const finalEntries = await fetchRepoJson(`projects/${projectName}/story/final`);
+        const mdFiles = finalEntries.filter((entry) => entry.type === "file" && entry.name.endsWith(".md"));
+        if (mdFiles.length === 0) {
+          continue;
+        }
+
+        const preferred =
+          mdFiles.find((entry) => /(final|oitebia)/i.test(entry.name)) ??
+          mdFiles.find((entry) => /ep03/i.test(entry.name)) ??
+          mdFiles[0];
+
+        const meta = normalizeProjectMeta(projectName);
+        sources.push({
+          ...meta,
+          path: preferred.path
+        });
+      } catch {
+        // If one project is missing story/final, skip it.
+      }
+    }
+
+    const order = Object.keys(projectMeta);
+    sources.sort((a, b) => {
+      const ai = order.findIndex((name) => projectMeta[name].slug === a.slug);
+      const bi = order.findIndex((name) => projectMeta[name].slug === b.slug);
+      if (ai === -1 && bi === -1) {
+        return a.slug.localeCompare(b.slug);
+      }
+      if (ai === -1) {
+        return 1;
+      }
+      if (bi === -1) {
+        return -1;
+      }
+      return ai - bi;
+    });
+
+    return sources.length > 0 ? sources : fallbackNovelSources();
+  } catch {
+    return fallbackNovelSources();
+  }
 }
 
 function stripFrontmatter(input) {
@@ -193,12 +297,12 @@ function parseTableRows(md, marker) {
   return rows;
 }
 
-function toMemberThumb(name) {
+function toMemberThumb() {
   return "/images/sample.png";
 }
 
-function fallbackNovels(error) {
-  return novelSources.map(({ slug, workTitle, sense, teaser, thumbnail }) => ({
+function fallbackNovels(sources, error) {
+  return sources.map(({ slug, workTitle, sense, teaser, thumbnail }) => ({
     slug,
     workTitle,
     sense,
@@ -214,11 +318,13 @@ async function main() {
   const generatedDir = path.resolve("src/generated");
   await fs.mkdir(generatedDir, { recursive: true });
 
+  const discoveredSources = await discoverNovelSources();
+
   let novels;
   let studio;
 
   if (!TOKEN) {
-    novels = fallbackNovels("OITEBIA_STUDIO_READ_TOKEN が未設定です");
+    novels = fallbackNovels(discoveredSources, "OITEBIA_STUDIO_READ_TOKEN が未設定です");
     studio = {
       members: fallbackMembers,
       metrics: fallbackMetrics,
@@ -229,10 +335,10 @@ async function main() {
     try {
       const [readme, ...novelTexts] = await Promise.all([
         fetchRepoText("README.md"),
-        ...novelSources.map((novel) => fetchRepoText(novel.path))
+        ...discoveredSources.map((novel) => fetchRepoText(novel.path))
       ]);
 
-      novels = novelSources.map(({ slug, workTitle, sense, teaser, thumbnail }, idx) => ({
+      novels = discoveredSources.map(({ slug, workTitle, sense, teaser, thumbnail }, idx) => ({
         slug,
         workTitle,
         sense,
@@ -281,7 +387,7 @@ async function main() {
       };
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unknown error";
-      novels = fallbackNovels(message);
+      novels = fallbackNovels(discoveredSources, message);
       studio = {
         members: fallbackMembers,
         metrics: fallbackMetrics,

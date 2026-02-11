@@ -42,5 +42,27 @@ export const works: Work[] = [
     novelSlug: "kintsugi-touch",
     highlight: "触覚表現 / クローズアップ演出",
     thumbnail: "/images/sample.png"
+  },
+  {
+    slug: "residual-scent",
+    title: "残り香",
+    sense: "嗅覚",
+    tagline: "人の記憶を香りとして嗅ぎ取る。",
+    synopsis:
+      "フリーランス調香師の蓮は、人の記憶を香りとして感じ取る力を持つ。余命宣告を受けた依頼人のため最後の一本を作る過程で、自身の喪失と向き合う。",
+    novelSlug: "residual-scent",
+    highlight: "香りのレイヤー演出 / 記憶再生",
+    thumbnail: "/images/sample.png"
+  },
+  {
+    slug: "taste-blind",
+    title: "味知らず",
+    sense: "味覚",
+    tagline: "感情を味として感じ取る食堂の物語。",
+    synopsis:
+      "食堂『しお』の店主・凛は、客の感情を味として感じ取る。何を食べても味がしない老人との対話を通じて、凍結した心を解きほぐしていく。",
+    novelSlug: "taste-blind",
+    highlight: "味覚×感情設計 / 日常ドラマ",
+    thumbnail: "/images/sample.png"
   }
 ];

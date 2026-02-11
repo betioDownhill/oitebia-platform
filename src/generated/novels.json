@@ -46,5 +46,37 @@
         "body": "本文を取得できませんでした。"
       }
     ]
+  },
+  {
+    "slug": "residual-scent",
+    "workTitle": "残り香",
+    "sense": "嗅覚",
+    "teaser": "人の記憶を香りとして嗅ぎ取る。",
+    "thumbnail": "/images/sample.png",
+    "lead": "作品本文の取得に失敗しました。",
+    "fetchError": "OITEBIA_STUDIO_READ_TOKEN が未設定です",
+    "chapters": [
+      {
+        "id": "chapter-1",
+        "heading": "取得エラー",
+        "body": "本文を取得できませんでした。"
+      }
+    ]
+  },
+  {
+    "slug": "taste-blind",
+    "workTitle": "味知らず",
+    "sense": "味覚",
+    "teaser": "感情を味として感じ取る食堂の物語。",
+    "thumbnail": "/images/sample.png",
+    "lead": "作品本文の取得に失敗しました。",
+    "fetchError": "OITEBIA_STUDIO_READ_TOKEN が未設定です",
+    "chapters": [
+      {
+        "id": "chapter-1",
+        "heading": "取得エラー",
+        "body": "本文を取得できませんでした。"
+      }
+    ]
   }
 ]
