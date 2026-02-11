@@ -1,9 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { novels } from "../../data/novels";
+import { novelSources } from "../../data/novelSources";
+import { loadNovel } from "../../lib/loadNovel";
 
-export function getStaticPaths() {
-  return novels.map((novel) => ({ params: { slug: novel.slug }, props: { novel } }));
+export async function getStaticPaths() {
+  const loaded = await Promise.all(novelSources.map((source) => loadNovel(source)));
+  return loaded.map((novel) => ({ params: { slug: novel.slug }, props: { novel } }));
 }
 
 const { novel } = Astro.props;
@@ -19,6 +21,11 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^
       <div class="actions">
         <a class="btn" href={withBase("/works")}>作品一覧へ</a>
       </div>
+      <p class="source">
+        Source:
+        <a href={novel.sourceUrl}>{novel.sourceUrl}</a>
+      </p>
+      {novel.fetchError && <p class="error">取得状態: {novel.fetchError}</p>}
     </header>
 
     {novel.chapters.map((chapter) => (
@@ -46,6 +53,19 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^
   .lead {
     color: var(--muted);
     margin-top: 0.4rem;
+  }
+
+  .source {
+    margin: 0.7rem 0 0;
+    font-size: 0.82rem;
+    color: var(--muted);
+    word-break: break-all;
+  }
+
+  .error {
+    margin: 0.45rem 0 0;
+    font-size: 0.82rem;
+    color: #ff9d8e;
   }
 
   .chapter {

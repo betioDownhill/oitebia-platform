@@ -38,11 +38,12 @@ npm run preview
 ## コンテンツ追加
 
 - 作品データ: `src/data/works.ts`
-- 小説データ: `src/data/novels.ts`
+- 小説参照元: `src/data/novelSources.ts`
 
 `works.ts` に作品を追加すると、以下が自動生成されます。
 
 - 作品一覧カード
 - 作品詳細ページ (`/works/<slug>`)
 
-`novels.ts` に追加すると、小説ページ (`/novels/<slug>`) が生成されます。
+`novelSources.ts` に追加すると、小説ページ (`/novels/<slug>`) が生成されます。
+本文は `oitebia-studio` の `raw.githubusercontent.com` からビルド時に取得します。
