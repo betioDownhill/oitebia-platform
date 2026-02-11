@@ -7,6 +7,13 @@ import { toAssetUrl } from "../lib/asset";
 export function NovelDetailPage() {
   const { slug = "" } = useParams();
   const novel = findNovel(slug);
+  const handleChapterJump = (chapterId: string) => {
+    const target = document.getElementById(chapterId);
+    if (!target) {
+      return;
+    }
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   if (!novel) {
     return (
@@ -37,9 +44,14 @@ export function NovelDetailPage() {
       <section className="panel chapter-panel">
         <nav className="chapter-toc" aria-label="章目次">
           {novel.chapters.map((chapter) => (
-            <a key={chapter.id} className="chapter-pill" href={`#${chapter.id}`}>
+            <button
+              key={chapter.id}
+              type="button"
+              className="chapter-pill"
+              onClick={() => handleChapterJump(chapter.id)}
+            >
               {chapter.heading}
-            </a>
+            </button>
           ))}
         </nav>
         {novel.chapters.map((chapter) => (

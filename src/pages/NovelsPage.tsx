@@ -9,7 +9,7 @@ export function NovelsPage() {
         <p className="lead">小説をサムネイル付きカードで選択し、本文ページへ進めます。</p>
       </section>
 
-      <section className="grid three-cols">
+      <section className="grid novels-grid">
         {novelList.map((novel) => (
           <NovelCard key={novel.slug} novel={novel} />
         ))}
