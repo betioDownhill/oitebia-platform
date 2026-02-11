@@ -27,18 +27,18 @@ export function HomePage() {
         ))}
       </section>
 
-      <section className="panel activity-block">
+      <section className="section-plain activity-block">
         <h2>スタジオ活動</h2>
         {studioData.fetchError ? <p className="warn">一部のスタジオ情報を更新中です。</p> : null}
-        <ul>
+        <ul className="activity-list">
           {studioData.activity.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
 
-        <div className="metrics-grid">
+        <div className="metrics-inline">
           {studioData.metrics.map((metric) => (
-            <article key={metric.label} className="metric-card">
+            <article key={metric.label} className="metric-inline">
               <p>{metric.label}</p>
               <strong>{metric.value}</strong>
             </article>
@@ -46,7 +46,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="panel members-block">
+      <section className="section-plain members-block">
         <h2>メンバー紹介</h2>
         <div className="grid five-cols">
           {studioData.members.map((member) => (

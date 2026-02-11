@@ -197,6 +197,19 @@ button:focus-visible {
   margin-bottom: 1rem;
 }
 
+.section-plain {
+  padding: 0.25rem 0;
+}
+
+.activity-list {
+  margin: 0.45rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.activity-list li + li {
+  margin-top: 0.25rem;
+}
+
 .eyebrow,
 .work-sense {
   margin: 0;
@@ -367,6 +380,29 @@ h2 {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.7rem;
+}
+
+.metrics-inline {
+  margin-top: 0.8rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.metric-inline {
+  border-left: 2px solid color-mix(in oklab, var(--line) 86%, transparent);
+  padding-left: 0.55rem;
+}
+
+.metric-inline p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.metric-inline strong {
+  display: block;
+  margin-top: 0.12rem;
 }
 
 .metric-card {
@@ -662,6 +698,7 @@ h2 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .metrics-inline,
   .metrics-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -682,6 +719,7 @@ h2 {
 @media (max-width: 700px) {
   .card-action-grid,
   .five-cols,
+  .metrics-inline,
   .metrics-grid {
     grid-template-columns: 1fr;
   }
