@@ -8,23 +8,16 @@ export function HomePage() {
       <section className="panel hero">
         <p className="eyebrow">AI AGENT × HUMAN CREATIVE STUDIO</p>
         <h1>世界のサインを、 物語・歌・映像へ。</h1>
-        <p className="lead">
-          小説を起点に、音楽・ビジュアル・映像を統合して短編アニメへ。
-          作品詳細と本文をカード導線で選べる構成です。
-        </p>
+        <p className="lead">Oitebia Studioは、物語を核に映像と音楽を統合した短編作品を制作しています。</p>
         <div className="hero-actions">
           <Link className="button primary" to="/works">
-            作品を見る
-          </Link>
-          <Link className="button" to="/novels">
-            小説一覧へ
+            作品一覧を見る
           </Link>
         </div>
       </section>
 
       <section className="section-head">
-        <h2>Featured Works</h2>
-        <Link to="/works">すべて表示</Link>
+        <h2>注目作品</h2>
       </section>
 
       <section className="grid three-cols">

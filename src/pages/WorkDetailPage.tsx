@@ -26,13 +26,10 @@ export function WorkDetailPage() {
       </section>
 
       <aside className="panel">
-        <h2>導線</h2>
+        <h2>閲覧</h2>
         <div className="stack-gap">
           <Link className="button primary" to={`/novels/${work.novelSlug}`}>
-            この作品の小説を読む
-          </Link>
-          <Link className="button" to="/novels">
-            小説一覧へ
+            本文を読む
           </Link>
           <Link className="button" to="/works">
             作品一覧へ

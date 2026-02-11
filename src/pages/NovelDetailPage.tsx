@@ -19,7 +19,7 @@ export function NovelDetailPage() {
     return (
       <section className="panel intro">
         <h1>小説が見つかりません</h1>
-        <Link to="/novels">小説一覧へ戻る</Link>
+        <Link to="/works">作品一覧へ戻る</Link>
       </section>
     );
   }
@@ -31,14 +31,11 @@ export function NovelDetailPage() {
         <h1>{novel.workTitle}</h1>
         <p className="lead">{novel.lead}</p>
         <div className="stack-gap">
-          <Link className="button" to="/novels">
-            小説一覧へ
-          </Link>
           <Link className="button" to="/works">
             作品一覧へ
           </Link>
         </div>
-        {novel.fetchError ? <p className="warn">取得状態: {novel.fetchError}</p> : null}
+        {novel.fetchError ? <p className="warn">本文データを更新中です。</p> : null}
       </aside>
 
       <section className="panel chapter-panel">

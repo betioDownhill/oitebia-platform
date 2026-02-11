@@ -1,22 +1,20 @@
-import { studioData } from "../data/store";
+import { studioData, workList } from "../data/store";
 import { toAssetUrl } from "../lib/asset";
-import { Link } from "react-router-dom";
+import { WorkCard } from "../components/WorkCard";
 
 export function WorksPage() {
   return (
     <>
       <section className="panel intro">
-        <h1>Works & Studio</h1>
-        <p className="lead">
-          このページは、スタジオ活動状況とメンバー紹介に特化しています。
-          小説は `Novel` から、作品本文に集中して閲覧できます。
-        </p>
-        <div className="hero-actions">
-          <Link className="button" to="/novels">
-            小説一覧へ
-          </Link>
-        </div>
-        {studioData.fetchError ? <p className="warn">同期状態: {studioData.fetchError}</p> : null}
+        <h1>作品一覧</h1>
+        <p className="lead">短編作品ごとの世界観、制作背景、本文を作品ページでご覧いただけます。</p>
+        {studioData.fetchError ? <p className="warn">一部のスタジオ情報を更新中です。</p> : null}
+      </section>
+
+      <section className="grid three-cols">
+        {workList.map((work) => (
+          <WorkCard key={work.slug} work={work} />
+        ))}
       </section>
 
       <section className="panel activity-block">

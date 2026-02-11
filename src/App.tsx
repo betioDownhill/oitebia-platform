@@ -2,7 +2,6 @@ import { NavLink, Navigate, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { WorksPage } from "./pages/WorksPage";
 import { WorkDetailPage } from "./pages/WorkDetailPage";
-import { NovelsPage } from "./pages/NovelsPage";
 import { NovelDetailPage } from "./pages/NovelDetailPage";
 
 export function App() {
@@ -23,12 +22,7 @@ export function App() {
               </li>
               <li>
                 <NavLink to="/works" className={({ isActive }) => `nav-link ${isActive ? "current" : ""}`}>
-                  Works
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/novels" className={({ isActive }) => `nav-link ${isActive ? "current" : ""}`}>
-                  Novel
+                  作品一覧
                 </NavLink>
               </li>
             </ul>
@@ -41,7 +35,7 @@ export function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/works" element={<WorksPage />} />
           <Route path="/works/:slug" element={<WorkDetailPage />} />
-          <Route path="/novels" element={<NovelsPage />} />
+          <Route path="/novels" element={<Navigate to="/works" replace />} />
           <Route path="/novels/:slug" element={<NovelDetailPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
