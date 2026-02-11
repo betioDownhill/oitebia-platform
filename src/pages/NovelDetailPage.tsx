@@ -42,6 +42,32 @@ export function NovelDetailPage() {
       </aside>
 
       <section className="panel chapter-panel">
+        <div className="chapter-toc-mobile">
+          <label htmlFor="chapter-select" className="chapter-select-label">
+            章を選択
+          </label>
+          <select
+            id="chapter-select"
+            className="chapter-select"
+            defaultValue=""
+            onChange={(event) => {
+              const chapterId = event.target.value;
+              if (chapterId) {
+                handleChapterJump(chapterId);
+              }
+            }}
+          >
+            <option value="" disabled>
+              章を選んで移動
+            </option>
+            {novel.chapters.map((chapter) => (
+              <option key={`opt-${chapter.id}`} value={chapter.id}>
+                {chapter.heading}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <nav className="chapter-toc" aria-label="章目次">
           {novel.chapters.map((chapter) => (
             <button

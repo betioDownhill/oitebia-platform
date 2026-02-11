@@ -404,6 +404,10 @@ h2 {
   gap: 0.95rem;
 }
 
+.detail-grid > * {
+  min-width: 0;
+}
+
 .detail-grid.novels {
   grid-template-columns: 320px 1fr;
 }
@@ -416,6 +420,30 @@ h2 {
 
 .chapter-panel {
   padding: 1.2rem;
+}
+
+.chapter-toc-mobile {
+  display: none;
+  margin-bottom: 0.75rem;
+}
+
+.chapter-select-label {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.chapter-select {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
+  background: #16293d;
+  color: var(--text);
+  padding: 0.5rem 0.65rem;
+  font: inherit;
 }
 
 .chapter-toc {
@@ -474,6 +502,7 @@ h2 {
 .markdown-body {
   max-width: 72ch;
   overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .markdown-body > *:first-child {
@@ -561,6 +590,38 @@ h2 {
 }
 
 @media (max-width: 700px) {
+  .detail-grid.novels {
+    gap: 0.7rem;
+  }
+
+  .sticky-side {
+    padding: 0.95rem;
+  }
+
+  .sticky-side .detail-thumb {
+    border-radius: 10px;
+  }
+
+  .sticky-side .lead {
+    font-size: 0.95rem;
+  }
+
+  .sticky-side .stack-gap {
+    gap: 0.45rem;
+  }
+
+  .sticky-side .button {
+    width: 100%;
+  }
+
+  .chapter-toc {
+    display: none;
+  }
+
+  .chapter-toc-mobile {
+    display: block;
+  }
+
   .chapter-pill {
     min-height: 38px;
     font-size: 0.85rem;
@@ -581,6 +642,11 @@ h2 {
 
   .chapter-block h2 {
     font-size: 1.25rem;
+  }
+
+  .markdown-body {
+    font-size: 0.97rem;
+    line-height: 1.82;
   }
 }
 
