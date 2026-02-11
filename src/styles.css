@@ -777,21 +777,43 @@ h2 {
     min-height: 350px;
   }
 
+  .site-header {
+    backdrop-filter: blur(5px);
+  }
+
+  .nav-wrap {
+    min-height: 54px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.45rem;
+    padding: 0.35rem 0;
+  }
+
+  .brand {
+    font-size: 1.02rem;
+  }
+
+  .nav-list {
+    gap: 0.35rem;
+    flex-wrap: nowrap;
+  }
+
+  .nav-link {
+    min-height: 36px;
+    padding: 0.3rem 0.58rem;
+    font-size: 0.92rem;
+  }
+
+  .main-content {
+    padding-top: 1.35rem;
+  }
+
   .card-action-grid,
   .five-cols,
   .metrics-inline,
   .metrics-grid {
     grid-template-columns: 1fr;
-  }
-
-  .nav-wrap {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.7rem 0;
-  }
-
-  .nav-list {
-    flex-wrap: wrap;
   }
 }
 
