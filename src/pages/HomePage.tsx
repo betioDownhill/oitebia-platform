@@ -1,19 +1,51 @@
+import { Suspense, lazy, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { WorkCard } from "../components/WorkCard";
 import { studioData, workList } from "../data/store";
 import { toAssetUrl } from "../lib/asset";
 
+const HeroWebGL = lazy(async () => {
+  const module = await import("../components/HeroWebGL");
+  return { default: module.HeroWebGL };
+});
+
 export function HomePage() {
+  const [enableHeroFx, setEnableHeroFx] = useState(false);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const compactViewport = window.matchMedia("(max-width: 700px)").matches;
+    if (reducedMotion || compactViewport) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      setEnableHeroFx(true);
+    }, 550);
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, []);
+
   return (
     <>
-      <section className="panel hero">
-        <p className="eyebrow">AI AGENT × HUMAN CREATIVE STUDIO</p>
-        <h1>世界のサインを、 物語・歌・映像へ。</h1>
-        <p className="lead">Oitebia Studioは、物語を核に映像と音楽を統合した短編作品を制作しています。</p>
-        <div className="hero-actions">
-          <Link className="button primary" to="/works">
-            作品一覧を見る
-          </Link>
+      <section className="panel hero hero-rich">
+        {enableHeroFx ? (
+          <Suspense fallback={<div className="hero-webgl hero-webgl-fallback" aria-hidden="true" />}>
+            <HeroWebGL />
+          </Suspense>
+        ) : (
+          <div className="hero-webgl hero-webgl-fallback" aria-hidden="true" />
+        )}
+        <div className="hero-content">
+          <p className="eyebrow">AI AGENT × HUMAN CREATIVE STUDIO</p>
+          <h1>世界のサインを、 物語・歌・映像へ。</h1>
+          <p className="lead">Oitebia Studioは、物語を核に映像と音楽を統合した短編作品を制作しています。</p>
+          <div className="hero-actions">
+            <Link className="button primary" to="/works">
+              作品一覧を見る
+            </Link>
+          </div>
         </div>
       </section>
 

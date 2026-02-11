@@ -152,6 +152,59 @@ button:focus-visible {
   padding: 1.1rem;
 }
 
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-rich {
+  min-height: clamp(380px, 54vw, 500px);
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero-webgl {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+  background:
+    radial-gradient(680px 420px at 8% 16%, #1a3f5f 0%, transparent 65%),
+    radial-gradient(620px 380px at 92% 10%, #5f2f3a 0%, transparent 62%);
+}
+
+.hero-webgl canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.hero-webgl::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(110deg, #0c1624de 0%, #0c1624bf 38%, #0c162455 72%, #0c162430 100%),
+    linear-gradient(180deg, #0c162486 0%, #0c1624c6 100%);
+}
+
+.hero-webgl-fallback {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(680px 420px at 10% 18%, #244764 0%, transparent 67%),
+    radial-gradient(540px 340px at 88% 16%, #593042 0%, transparent 63%),
+    linear-gradient(180deg, #0c1624 0%, #102033 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: min(760px, 100%);
+}
+
 .button {
   min-height: 44px;
   display: inline-flex;
@@ -717,6 +770,21 @@ h2 {
 }
 
 @media (max-width: 700px) {
+  .hero-rich {
+    min-height: 350px;
+  }
+
+  .hero-webgl canvas {
+    display: none;
+  }
+
+  .hero-webgl {
+    background:
+      radial-gradient(500px 300px at 12% 18%, #244764 0%, transparent 66%),
+      radial-gradient(380px 240px at 90% 12%, #593042 0%, transparent 60%),
+      linear-gradient(180deg, #0c1624 0%, #102033 100%);
+  }
+
   .card-action-grid,
   .five-cols,
   .metrics-inline,
@@ -732,5 +800,11 @@ h2 {
 
   .nav-list {
     flex-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-webgl canvas {
+    display: none;
   }
 }
