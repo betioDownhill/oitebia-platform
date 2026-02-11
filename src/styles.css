@@ -200,6 +200,14 @@ button:focus-visible {
   max-width: min(760px, 100%);
 }
 
+.hero-title {
+  text-wrap: balance;
+}
+
+.hero-title span {
+  display: block;
+}
+
 .button {
   min-height: 44px;
   display: inline-flex;
@@ -767,10 +775,6 @@ h2 {
 @media (max-width: 700px) {
   .hero-rich {
     min-height: 350px;
-  }
-
-  .hero-fluid {
-    display: none;
   }
 
   .card-action-grid,

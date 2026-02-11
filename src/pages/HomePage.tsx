@@ -11,7 +11,10 @@ export function HomePage() {
         <HeroFluid />
         <div className="hero-content">
           <p className="eyebrow">AI AGENT × HUMAN CREATIVE STUDIO</p>
-          <h1>世界のサインを、 物語・歌・映像へ。</h1>
+          <h1 className="hero-title">
+            <span>世界のサインを、</span>
+            <span>物語・歌・映像へ。</span>
+          </h1>
           <p className="lead">Oitebia Studioは、物語を核に映像と音楽を統合した短編作品を制作しています。</p>
           <div className="hero-actions">
             <Link className="button primary" to="/works">

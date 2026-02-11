@@ -31,6 +31,7 @@ export function HeroFluid() {
     if (!canvas) {
       return;
     }
+    const compactViewport = window.matchMedia("(max-width: 700px)").matches;
 
     let cancelled = false;
     const boot = async () => {
@@ -46,15 +47,15 @@ export function HeroFluid() {
         createFluid(canvas, {
           IMMEDIATE: true,
           AUTO: true,
-          INTERVAL: 2200,
+          INTERVAL: compactViewport ? 1800 : 2200,
           TRANSPARENT: true,
           SHADING: true,
           COLORFUL: true,
           COLOR_UPDATE_SPEED: 10,
-          BLOOM: true,
-          SUNRAYS: true,
-          SIM_RESOLUTION: 128,
-          DYE_RESOLUTION: 768
+          BLOOM: !compactViewport,
+          SUNRAYS: !compactViewport,
+          SIM_RESOLUTION: compactViewport ? 96 : 128,
+          DYE_RESOLUTION: compactViewport ? 512 : 768
         });
       } catch {
         // If initialization fails, gradient fallback remains visible.
