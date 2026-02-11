@@ -19,7 +19,7 @@ export const works: Work[] = [
       "新人アニメーターのユイは、絵を現実に出す力と引き換えに画力を失っていく。スタジオを守るためのプレゼンで力が暴走したあと、彼女に残ったのは鉛筆と震える手だけだった。",
     novelSlug: "yui-miracle",
     highlight: "キャラデザ / 背景 / 絵コンテ / 音楽計画",
-    thumbnail: "/images/novels/yui-miracle.svg"
+    thumbnail: "/images/sample.png"
   },
   {
     slug: "last-tuner",
@@ -30,7 +30,7 @@ export const works: Work[] = [
       "調律師の篠崎楓は、閉館するホール最後のピアノと向き合う。美しい記憶だけでなく痛みも抱えた音の層を弾き切った時、幼い日の夜想曲の真実に辿り着く。",
     novelSlug: "last-tuner",
     highlight: "短編3話構成 / 音主導の演出設計",
-    thumbnail: "/images/novels/last-tuner.svg"
+    thumbnail: "/images/sample.png"
   },
   {
     slug: "kintsugi-touch",
@@ -41,6 +41,6 @@ export const works: Work[] = [
       "金継ぎ職人の神谷奏は、遺品の茶碗に残る怒りと絶望の奥で、不器用な愛を見つける。壊れた痕を消さず、痕ごと抱える再生の物語。",
     novelSlug: "kintsugi-touch",
     highlight: "触覚表現 / クローズアップ演出",
-    thumbnail: "/images/novels/kintsugi-touch.svg"
+    thumbnail: "/images/sample.png"
   }
 ];

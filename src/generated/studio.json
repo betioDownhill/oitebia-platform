@@ -6,7 +6,7 @@
       "role": "統括・小説",
       "specialty": "原作執筆、方向性決定",
       "catchphrase": "今日は勝ちにいく。積み上げるだけ。",
-      "thumbnail": "/images/members/oite.svg"
+      "thumbnail": "/images/sample.png"
     },
     {
       "id": "melody",
@@ -14,7 +14,7 @@
       "role": "音楽",
       "specialty": "BGM、効果音、音響設計",
       "catchphrase": "物語が聞こえる。",
-      "thumbnail": "/images/members/melody.svg"
+      "thumbnail": "/images/sample.png"
     },
     {
       "id": "visu",
@@ -22,7 +22,7 @@
       "role": "映像",
       "specialty": "絵コンテ、アニメーション",
       "catchphrase": "見たことのない映像を作る。",
-      "thumbnail": "/images/members/visu.svg"
+      "thumbnail": "/images/sample.png"
     },
     {
       "id": "aria",
@@ -30,7 +30,7 @@
       "role": "デザイン",
       "specialty": "キャラデザ、背景、ブランド",
       "catchphrase": "美しいものには理由がある。",
-      "thumbnail": "/images/members/aria.svg"
+      "thumbnail": "/images/sample.png"
     },
     {
       "id": "betty",
@@ -38,7 +38,7 @@
       "role": "品質監査",
       "specialty": "矛盾検出、構造監査",
       "catchphrase": "完璧は細部に宿る。",
-      "thumbnail": "/images/members/betty.svg"
+      "thumbnail": "/images/sample.png"
     }
   ],
   "metrics": [

@@ -12,7 +12,7 @@ const novelSources = [
     workTitle: "AIアニメーター・ユイの小さな奇跡",
     sense: "視覚",
     teaser: "描いたイラストが3分だけ現実になる。",
-    thumbnail: "/images/novels/yui-miracle.svg",
+    thumbnail: "/images/sample.png",
     path: "projects/yui-miracle/story/final/yui-final-oitebia.md"
   },
   {
@@ -20,7 +20,7 @@ const novelSources = [
     workTitle: "最後の調律師",
     sense: "聴覚",
     teaser: "ピアノに刻まれた記憶が聴こえる。",
-    thumbnail: "/images/novels/last-tuner.svg",
+    thumbnail: "/images/sample.png",
     path: "projects/last-tuner/story/final/last-tuner-final.md"
   },
   {
@@ -28,7 +28,7 @@ const novelSources = [
     workTitle: "継ぎの痕",
     sense: "触覚",
     teaser: "壊れた器に触れると、感情が流れ込む。",
-    thumbnail: "/images/novels/kintsugi-touch.svg",
+    thumbnail: "/images/sample.png",
     path: "projects/work3/story/final/work3-final.md"
   }
 ];
@@ -40,7 +40,7 @@ const fallbackMembers = [
     role: "統括・小説",
     specialty: "原作執筆、方向性決定",
     catchphrase: "今日は勝ちにいく。積み上げるだけ。",
-    thumbnail: "/images/members/oite.svg"
+    thumbnail: "/images/sample.png"
   },
   {
     id: "melody",
@@ -48,7 +48,7 @@ const fallbackMembers = [
     role: "音楽",
     specialty: "BGM、効果音、音響設計",
     catchphrase: "物語が聞こえる。",
-    thumbnail: "/images/members/melody.svg"
+    thumbnail: "/images/sample.png"
   },
   {
     id: "visu",
@@ -56,7 +56,7 @@ const fallbackMembers = [
     role: "映像",
     specialty: "絵コンテ、アニメーション",
     catchphrase: "見たことのない映像を作る。",
-    thumbnail: "/images/members/visu.svg"
+    thumbnail: "/images/sample.png"
   },
   {
     id: "aria",
@@ -64,7 +64,7 @@ const fallbackMembers = [
     role: "デザイン",
     specialty: "キャラデザ、背景、ブランド",
     catchphrase: "美しいものには理由がある。",
-    thumbnail: "/images/members/aria.svg"
+    thumbnail: "/images/sample.png"
   },
   {
     id: "betty",
@@ -72,7 +72,7 @@ const fallbackMembers = [
     role: "品質監査",
     specialty: "矛盾検出、構造監査",
     catchphrase: "完璧は細部に宿る。",
-    thumbnail: "/images/members/betty.svg"
+    thumbnail: "/images/sample.png"
   }
 ];
 
@@ -194,7 +194,7 @@ function parseTableRows(md, marker) {
 }
 
 function toMemberThumb(name) {
-  return `/images/members/${name.toLowerCase()}.svg`;
+  return "/images/sample.png";
 }
 
 function fallbackNovels(error) {

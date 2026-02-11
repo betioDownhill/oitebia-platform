@@ -4,7 +4,7 @@
     "workTitle": "AIアニメーター・ユイの小さな奇跡",
     "sense": "視覚",
     "teaser": "描いたイラストが3分だけ現実になる。",
-    "thumbnail": "/images/novels/yui-miracle.svg",
+    "thumbnail": "/images/sample.png",
     "lead": "作品本文の取得に失敗しました。",
     "fetchError": "OITEBIA_STUDIO_READ_TOKEN が未設定です",
     "chapters": [
@@ -20,7 +20,7 @@
     "workTitle": "最後の調律師",
     "sense": "聴覚",
     "teaser": "ピアノに刻まれた記憶が聴こえる。",
-    "thumbnail": "/images/novels/last-tuner.svg",
+    "thumbnail": "/images/sample.png",
     "lead": "作品本文の取得に失敗しました。",
     "fetchError": "OITEBIA_STUDIO_READ_TOKEN が未設定です",
     "chapters": [
@@ -36,7 +36,7 @@
     "workTitle": "継ぎの痕",
     "sense": "触覚",
     "teaser": "壊れた器に触れると、感情が流れ込む。",
-    "thumbnail": "/images/novels/kintsugi-touch.svg",
+    "thumbnail": "/images/sample.png",
     "lead": "作品本文の取得に失敗しました。",
     "fetchError": "OITEBIA_STUDIO_READ_TOKEN が未設定です",
     "chapters": [
