@@ -19,25 +19,38 @@ export function WorkDetailPage() {
     <article className="detail-grid">
       <section className="panel">
         <img className="detail-thumb" src={toAssetUrl(work.thumbnail)} alt={`${work.title} サムネイル`} loading="lazy" />
-        <p className="work-sense">{work.sense}</p>
+        <p className="wk-badge-inline">{work.sense}</p>
         <h1>{work.title}</h1>
         <p className="work-tagline">{work.tagline}</p>
         <p>{work.synopsis}</p>
+
+        {/* Video section — placeholder for future anime/CM */}
+        <div className="video-section">
+          <h2>映像</h2>
+          <div className="video-placeholder">
+            <div className="video-placeholder-inner">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+              <p>短編アニメーション / CM — 準備中</p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <aside className="panel">
+      <aside className="panel sticky-side">
         <h2>閲覧</h2>
         <div className="stack-gap">
-          <Link className="button primary" to={`/novels/${work.novelSlug}`}>
+          <Link className="btn btn-primary" to={`/novels/${work.novelSlug}`}>
             本文を読む
           </Link>
-          <Link className="button" to="/works">
+          <Link className="btn" to="/works">
             作品一覧へ
           </Link>
         </div>
 
-        <h2>制作ハイライト</h2>
-        <p>{work.highlight}</p>
+        <h2>制作情報</h2>
+        <p className="detail-highlight">{work.highlight}</p>
       </aside>
     </article>
   );

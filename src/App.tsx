@@ -3,6 +3,7 @@ import { HomePage } from "./pages/HomePage";
 import { WorksPage } from "./pages/WorksPage";
 import { WorkDetailPage } from "./pages/WorkDetailPage";
 import { NovelDetailPage } from "./pages/NovelDetailPage";
+import { toAssetUrl } from "./lib/asset";
 
 export function App() {
   return (
@@ -12,7 +13,10 @@ export function App() {
       </a>
       <header className="site-header">
         <div className="container nav-wrap">
-          <div className="brand">Oitebia Studio</div>
+          <NavLink to="/" className="brand" aria-label="Oitebia Studio トップページ">
+            <img src={toAssetUrl("/images/logo.png")} alt="Oitebia Studio" className="brand-logo" />
+            <span className="brand-text">Oitebia Studio</span>
+          </NavLink>
           <nav>
             <ul className="nav-list">
               <li>
@@ -42,7 +46,11 @@ export function App() {
       </main>
 
       <footer className="site-footer">
-        <div className="container">Oitebia Studio / Founded 2026</div>
+        <div className="container footer-inner">
+          <img src={toAssetUrl("/images/logo.png")} alt="" className="footer-logo" aria-hidden="true" />
+          <p>Oitebia Studio / Founded 2026</p>
+          <p className="footer-tagline">AI Agent × Human Creative Studio</p>
+        </div>
       </footer>
     </div>
   );

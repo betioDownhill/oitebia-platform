@@ -8,14 +8,16 @@ type Props = {
 
 export function WorkCard({ work }: Props) {
   return (
-    <article className="panel work-card">
-      <Link className="work-main" to={`/works/${work.slug}`} aria-label={`${work.title} の作品ページへ`}>
-        <img className="work-thumb" src={toAssetUrl(work.thumbnail)} alt={`${work.title} サムネイル`} loading="lazy" />
-        <p className="work-sense">{work.sense}</p>
-        <h3>{work.title}</h3>
-        <p className="work-tagline">{work.tagline}</p>
-        <p className="work-highlight">{work.highlight}</p>
-        <p className="work-link-text">作品ページへ</p>
+    <article className="wk-card">
+      <Link className="wk-link" to={`/works/${work.slug}`} aria-label={`${work.title} の作品ページへ`}>
+        <div className="wk-thumb-wrap">
+          <img className="wk-thumb" src={toAssetUrl(work.thumbnail)} alt={`${work.title} サムネイル`} loading="lazy" />
+          <span className="wk-badge">{work.sense}</span>
+        </div>
+        <div className="wk-body">
+          <h3 className="wk-title">{work.title}</h3>
+          <p className="wk-tagline">{work.tagline}</p>
+        </div>
       </Link>
     </article>
   );
